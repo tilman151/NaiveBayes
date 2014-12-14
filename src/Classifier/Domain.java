@@ -8,8 +8,8 @@ package Classifier;
  */
 public class Domain {
 
-	private String name;
-	private String[] values;
+	protected String name;
+	protected String[] values;
 	
 	public Domain(String name, String[] values){
 		this.name = name;
@@ -34,6 +34,14 @@ public class Domain {
 			res += s + ",";
 		}
 		return res + ")";
+	}
+	
+	public int indexOf(String value){
+		for(int i = 0; i < values.length; i++){
+			if(values[i].compareTo(value) == 0)
+				return i;
+		}
+		return -1;
 	}
 	
 }

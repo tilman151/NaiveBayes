@@ -147,4 +147,17 @@ public class Trainingset {
 		return res;
 	}
 	
+	public Trainingset splitUpTestSet(int percentage){
+		
+		Trainingset testset = new Trainingset(domains, classes);
+		int testsetsize = instances.size()*percentage/100;
+		
+		for(int i = 0; i < testsetsize; i++){
+			int index = (int)(Math.random()*instances.size());
+			testset.addInstance(instances.remove(index));
+		}
+		
+		return testset;
+	}
+	
 }
