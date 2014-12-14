@@ -2,7 +2,7 @@ package Classifier;
 
 import java.util.ArrayList;
 
-public class AllAboutThatBayes {
+public class AllAboutThatBayes extends Classifier{
 	
 	//contains P(a_i = v_i | C = c_i) as the number of occurrence
 	private ArrayList<PropabilityDomain> aPriori;
@@ -69,13 +69,34 @@ public class AllAboutThatBayes {
 			if(indexOfValue > -1)
 				aPriori.get(i).upOnePropability(indexOfValue, classes.indexOf(instance.getClassification()));
 			else
-				System.err.println("Unknown value for feature" + i + "found!");
+				System.err.println("Unknown value for feature " + aPriori.get(i).getName() + " found!");
 		}
 		
 		//add classification count
 		int indexOfClass = classes.indexOf(instance.getClassification());
 		double preProb = classPropability.get(indexOfClass);
 		classPropability.set(indexOfClass, preProb+1);
+	}
+	
+	@Override
+	public String classify(Instance i){
+		
+		double[] membershipProbability = new double[classes.size()];
+		
+		for(int j = 0; j < i.getDimension(); j++){
+			for(int c = 0; c < membershipProbability.length; c++){
+				int indexOfValue = aPriori.get(j).indexOf(i.getFeature(j));
+				membershipProbability[c] *= aPriori.get(j).getPropability(indexOfValue, c)/classPropability.get(c);
+			}
+		}
+		
+		int maxIndex = 0;
+		for(int c = 0; c < membershipProbability.length; c++){
+			if(membershipProbability[maxIndex] < membershipProbability[c])
+				maxIndex = c;
+		}
+		
+		return classes.get(maxIndex);
 	}
 
 }

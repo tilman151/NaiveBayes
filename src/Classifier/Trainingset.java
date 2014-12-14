@@ -150,7 +150,7 @@ public class Trainingset {
 	public Trainingset splitUpTestSet(int percentage){
 		
 		Trainingset testset = new Trainingset(domains, classes);
-		int testsetsize = instances.size()*percentage/100;
+		int testsetsize =  (int) (instances.size()*percentage/(double) 100);
 		
 		for(int i = 0; i < testsetsize; i++){
 			int index = (int)(Math.random()*instances.size());

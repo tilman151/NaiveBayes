@@ -6,7 +6,9 @@ import DataTransfer.InstanceReader;
 import DataTransfer.MetaDataReader;
 import Classifier.AllAboutThatBayes;
 import Classifier.Domain;
+import Classifier.Instance;
 import Classifier.Trainingset;
+import Classifier.Validator;
 
 public class Main {
 
@@ -22,7 +24,24 @@ public class Main {
 		t.setDomains(d);
 		AllAboutThatBayes classifier = new AllAboutThatBayes();
 		
+		Trainingset testSet = t.splitUpTestSet(20);
+		
 		classifier.learn(t);
+		
+		ArrayList<String> features = new ArrayList<>();
+		features.add("vhigh");
+		features.add("vhigh");
+		features.add("2");
+		features.add("4");
+		features.add("small");
+		features.add("med");
+		Instance i = new Instance(features,"unacc");
+		
+		System.out.println(classifier.classify(i));
+		
+		Validator v = new Validator(classifier);
+		System.out.println(v.validateOnTestSet(testSet));
+		
 	}
 	
 }
