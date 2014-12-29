@@ -22,9 +22,10 @@ public class Main {
 		
 		t.setClasses(c);
 		t.setDomains(d);
+		
 		AllAboutThatBayes classifier = new AllAboutThatBayes();
 		
-		Trainingset testSet = t.splitUpTestSet(20);
+		Trainingset testSet = t.splitUpTestSet(33);
 		
 		classifier.learn(t);
 		
@@ -39,8 +40,8 @@ public class Main {
 		
 		System.out.println(classifier.classify(i));
 		
-		Validator v = new Validator(classifier);
-		System.out.println(v.validateOnTestSet(testSet));
+//		Validator v = new Validator(classifier);
+//		System.out.println(v.validateOnTestSet(testSet));
 		
 	}
 	

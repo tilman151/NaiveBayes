@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 
 /**
- * Training set for decision trees; contains instances, possible classes and domains of features
+ * Training set for machine learning algorithms; contains instances, possible classes and domains of features
  * 
  * @author Tilman & Tim
  *

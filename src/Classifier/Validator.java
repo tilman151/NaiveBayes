@@ -2,9 +2,9 @@ package Classifier;
 
 public class Validator {
 
-	private Classifier classifier;
+	private IClassifier classifier;
 	
-	public Validator(Classifier c){
+	public Validator(IClassifier c){
 		this.classifier = c;
 	}
 	
