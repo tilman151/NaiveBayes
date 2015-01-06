@@ -1,0 +1,18 @@
+NaiveBayes
+---------------------------------------------------------------------------------
+
+Format of Confusion Matrix:
+
+		|	classified class 1	|	classified class 2	|
+real class 1	|		1		|		0		|
+real class 2	|		0		|		1		|
+
+---------------------------------------------------------------------------------
+
+Mean error over 100 samples: 0.14521052631578968
+	 | 	unacc	 | 	acc	 | 	good	 | 	vgood	 | 	
+unacc  	 | 	383	 | 	13	 | 	0	 | 	0	 | 	
+acc  	 | 	25	 | 	92	 | 	5	 | 	0	 | 	
+good  	 | 	0	 | 	27	 | 	2	 | 	0	 | 	
+vgood  	 | 	0	 | 	11	 | 	1	 | 	11	 | 	
+

@@ -10,13 +10,11 @@ public class AllAboutThatBayes implements IClassifier {
 	private ArrayList<String> classes;
 	//contains P(C = c_j) as number of occurrence
 	private ArrayList<Double> classProbability;
-	//contains the number of learned instances
-	private int instancesLearned;
+	
 	
 	//The final probabilities are obtained by dividing the value in aPriori/classProbability by classProability/instancesLearned
 	
 	public AllAboutThatBayes(){
-		instancesLearned = 0;
 		aPriori = new ArrayList<>();
 		classProbability = new ArrayList<>();
 		classes = new ArrayList<>();
@@ -24,7 +22,6 @@ public class AllAboutThatBayes implements IClassifier {
 	
 	public AllAboutThatBayes(ArrayList<String> classes){
 		this.classes = classes;
-		instancesLearned = 0;
 		aPriori = new ArrayList<>();
 		classProbability = new ArrayList<>();
 	}
@@ -47,18 +44,6 @@ public class AllAboutThatBayes implements IClassifier {
 		//for all instances
 		for(int i = 0; i < training.size(); i++){
 			learn(training.getInstance(i));
-			instancesLearned++;
-		}
-		
-		//Debug output
-		System.out.println(instancesLearned);
-		for(int i = 0; i < classes.size(); i++){
-			System.out.println(classes.get(i) + ": " + classProbability.get(i));
-			for(int j = 0; j < aPriori.size(); j++){
-				for(int k = 0; k < aPriori.get(j).size(); k++)
-					System.out.println("\t" + aPriori.get(j).getValue(k) + ": " + aPriori.get(j).getProbability(k, i));
-				System.out.println("\n");
-			}
 		}
 	}
 
@@ -92,7 +77,6 @@ public class AllAboutThatBayes implements IClassifier {
 				else 
 					membershipProbability[c] *= aPriori.get(j).getProbability(indexOfValue, c)/classProbability.get(c);
 				
-				System.out.println(membershipProbability[c]);
 			}
 		}
 		

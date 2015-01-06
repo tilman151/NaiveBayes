@@ -20,4 +20,18 @@ public class Validator {
 		return 1 - ((double) wronglyClassified  / (double) testSet.size());
 	}
 	
+	public int[][] computeConfusionMatrix(Trainingset testSet){
+		
+		int n = testSet.getClassCount();
+		int[][] matrix = new int[n][n];
+		
+		for(int i = 0; i < testSet.size(); i++){
+			int x = testSet.getClasses().indexOf(testSet.getInstance(i).getClassification());
+			int y = testSet.getClasses().indexOf(classifier.classify(testSet.getInstance(i)));
+			matrix[x][y]++;
+		}
+		
+		return matrix;
+	}
+	
 }
