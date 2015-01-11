@@ -2,6 +2,14 @@ package Classifier;
 
 import java.util.ArrayList;
 
+/**
+ * A Naive Bayes classifier.
+ * 
+ * Implements the IClassifier interface.
+ * 
+ * @author Tim & Tilman
+ *
+ */
 public class AllAboutThatBayes implements IClassifier {
 	
 	//contains P(a_i = v_i | C = c_j) as the number of occurrence
@@ -28,8 +36,13 @@ public class AllAboutThatBayes implements IClassifier {
 	
 	public void setClasses(ArrayList<String> classes){
 		this.classes = classes;
-	}
+	}	
 	
+	/**
+	 * Learns from a training set with Naive Bayes method 
+	 * 
+	 * @param training Training set to be learned from
+	 */
 	public void learn(Trainingset training){
 		
 		this.classes = training.getClasses();
@@ -47,11 +60,17 @@ public class AllAboutThatBayes implements IClassifier {
 		}
 	}
 
+	/**
+	 * Learns from a single Instance
+	 * 
+	 * @param instance Instance to be learned from
+	 */
 	private void learn(Instance instance) {
 		//for all features
 		for(int i = 0; i < instance.getDimension(); i++){
 			int indexOfValue = aPriori.get(i).indexOf(instance.getFeature(i));
 			if(indexOfValue > -1)
+				// Increment the counter for the respective class for the given value of a feature
 				aPriori.get(i).upOneProbability(indexOfValue, classes.indexOf(instance.getClassification()));
 			else
 				System.err.println("Unknown value for feature " + aPriori.get(i).getName() + " found!");
@@ -65,13 +84,17 @@ public class AllAboutThatBayes implements IClassifier {
 	
 	public String classify(Instance i){
 		
+		// Initialize probability of class membership
 		double[] membershipProbability = new double[classes.size()];
 		
-		
+		// for each feature
 		for(int j = 0; j < i.getDimension(); j++){
+			// for each probable class
 			for(int c = 0; c < membershipProbability.length; c++){
+				// get the value
 				int indexOfValue = aPriori.get(j).indexOf(i.getFeature(j));
 				
+				// accumulate probabilities by multiplication
 				if (j == 0) 
 					membershipProbability[c] = aPriori.get(j).getProbability(indexOfValue, c)/classProbability.get(c);
 				else 
@@ -80,6 +103,7 @@ public class AllAboutThatBayes implements IClassifier {
 			}
 		}
 		
+		// multiply with probability of class itself
 		for (int c = 0; c < membershipProbability.length; c++){
 			membershipProbability[c] *= classProbability.get(c);
 		}
@@ -90,6 +114,7 @@ public class AllAboutThatBayes implements IClassifier {
 				maxIndex = c;
 		}
 		
+		// return class with maximal probability
 		return classes.get(maxIndex);
 	}
 
